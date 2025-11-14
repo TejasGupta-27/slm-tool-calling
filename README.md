@@ -40,25 +40,10 @@ enabling other researchers to replicate and build upon our findings.
 Face Hub, providing a tangible contribution to the community.
 
 ## Databases and Evaluation Metrics
-### Databases:
-- **API-Bank**: Utilized as the primary training corpus due to its diverse API set and its emphasis on multi-turn dialogues,
-which is critical for developing contextual understanding.
-- **Berkeley Function Calling Leaderboard (BFCL)**: Employed as the primary evaluation suite to test for functional
-correctness and precision in real-world scenarios.
 
-### Evaluation Metrics:
-- **Call Accuracy**: A strict metric for functional correctness, calculated as the percentage of perfectly formulated API calls.
-- **Decision Accuracy**: Evaluates the model’s reasoning by measuring its correctness in deciding whether tool invocation is
-necessary.
-- **Hallucination Rate**: The frequency of generating non-existent tools or parameters, a critical metric for assessing model
-reliability and trustworthiness.
-- **Computational Cost**: The resources required for the fine-tuning process, measured in GPU hours, to quantify the model’s
-training efficiency.
 
 ## Conceptual Diagram
 
-**Figure**: A diagram illustrating an efficient SLM successfully using a variety of tools, while a larger, more complex LLM struggles with the same tasks,
-highlighting the SLM’s superior performance and efficiency.
 
 ## References
 1. Schick, T., et al. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. arXiv:2302.04761.
