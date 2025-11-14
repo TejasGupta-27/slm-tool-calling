@@ -1,0 +1,14 @@
+/models
+/data   
+/wandb
+/logs
+/results
+/tmp
+/cache
+/env
+/venv
+/lib
+/include
+/bin
+/share
+/local

@@ -1,0 +1,18 @@
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  17%|█▋        | 1000/6000 [00:00<00:01, 2920.69 examples/s]Map:  33%|███▎      | 2000/6000 [00:00<00:01, 3740.72 examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 4166.58 examples/s]Map:  67%|██████▋   | 4000/6000 [00:00<00:00, 4432.70 examples/s]Map:  83%|████████▎ | 5000/6000 [00:01<00:00, 4562.23 examples/s]Map: 100%|██████████| 6000/6000 [00:01<00:00, 4639.93 examples/s]Map: 100%|██████████| 6000/6000 [00:01<00:00, 3802.63 examples/s]
+`flash-attention` package not found, consider installing for better performance: No module named 'flash_attn'.
+Current `flash-attenton` does not support `window_size`. Either upgrade or use `attn_implementation='eager'`.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:03<00:18,  3.76s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [00:07<00:15,  3.84s/it]Loading checkpoint shards:  50%|█████     | 3/6 [00:11<00:11,  3.71s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:15<00:07,  3.86s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [00:18<00:03,  3.73s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:21<00:00,  3.29s/it]Loading checkpoint shards: 100%|██████████| 6/6 [00:21<00:00,  3.54s/it]
+Model and tokenizer loaded successfully.
+Dataset preprocessed and tokenized.
+Truncating train dataset:   0%|          | 0/6000 [00:00<?, ? examples/s]Truncating train dataset: 100%|██████████| 6000/6000 [00:00<00:00, 28945.00 examples/s]Truncating train dataset: 100%|██████████| 6000/6000 [00:00<00:00, 28686.49 examples/s]
+wandb: Currently logged in as: b22cs093 (b22cs093-prom-iit-rajasthan) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run psv3u7aa
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /data/b22cs093/slm-tool-calling/wandb/run-20251114_134441-psv3u7aa
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run giddy-brook-32
+wandb: ⭐️ View project at https://wandb.ai/b22cs093-prom-iit-rajasthan/huggingface
+wandb: 🚀 View run at https://wandb.ai/b22cs093-prom-iit-rajasthan/huggingface/runs/psv3u7aa
+Starting training...
+  0%|          | 0/1500 [00:00<?, ?it/s]You are not running the flash-attention implementation, expect numerical differences.
+  0%|          | 1/1500 [00:08<3:32:34,  8.51s/it]  0%|          | 2/1500 [00:16<3:26:47,  8.28s/it]  0%|          | 3/1500 [00:24<3:24:46,  8.21s/it]  0%|          | 4/1500 [00:32<3:23:44,  8.17s/it]  0%|          | 5/1500 [00:40<3:23:09,  8.15s/it]  0%|          | 6/1500 [00:49<3:22:44,  8.14s/it]  0%|          | 7/1500 [00:57<3:22:23,  8.13s/it]  1%|          | 8/1500 [01:05<3:22:06,  8.13s/it]  1%|          | 9/1500 [01:13<3:21:54,  8.13s/it]
