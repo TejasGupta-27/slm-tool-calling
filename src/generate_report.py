@@ -12,7 +12,7 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
     print(f"Adapter: {adapter_path}")
     
     # Check if adapter exists before doing anything expensive
-    if not os.path.exists(adapter_path):
+    if adapter_path and not os.path.exists(adapter_path):
         print(f"Warning: Adapter path {adapter_path} does not exist. Skipping.")
         return [{
             "query": sample["query"],
@@ -64,13 +64,16 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
             "query": sample["query"],
             "ground_truth": json.loads(sample["answers"]),
             "base_output": base_text,
-            "ft_output": None # Placeholder
+            "ft_output": "N/A (Baseline Only)" if not adapter_path else None # Placeholder
         })
         
     del base_pipe, base_model
     gc.collect()
     torch.cuda.empty_cache()
     
+    if not adapter_path:
+        return results
+
     # 2. Generate with FINE-TUNED Model
     print("Loading Fine-Tuned Model...")
     base_model = AutoModelForCausalLM.from_pretrained(
@@ -154,6 +157,11 @@ def main():
             "name": "Phi-3-Medium (DPO)",
             "id": "microsoft/Phi-3-medium-4k-instruct",
             "adapter": "./models/phi3-medium-tool-calling-dpo-final"
+        },
+        {
+            "name": "Mistral-7B-Baseline",
+            "id": "mistralai/Mistral-7B-Instruct-v0.3",
+            "adapter": None
         }
     ]
     
