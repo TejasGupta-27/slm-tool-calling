@@ -1,0 +1,194 @@
+{
+  "SmolLM-360M": [
+    {
+      "query": "Provide information on the teams 'team567' and 'team890' from the European league.",
+      "ground_truth": [
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team567"
+          }
+        },
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team890"
+          }
+        }
+      ],
+      "base_output": "The teams 'team567' and 'team890' are members of the European league. Each team is responsible for six players.\nThe number of players for each team is as follows:\nTeam 567: 11 players\nTeam 890: 12 players\nThe number of players for each team is as follows:\nTeam 567: 11 players\nTeam 890: 12 players\nThe number of players for each team is as follows:\nTeam 567: 11 players\nTeam 890:",
+      "ft_output": "<|tool_code|>\nget_team_info(**{\"is_id\": \"team567\"})\nget_team_info(**{\"is_id\": \"team890\"})<|end|>"
+    },
+    {
+      "query": "Are the phrases 'Eleven plus two' and 'Twelve plus one' anagrams of each other? Calculate the weighted grade for scores [85, 90, 95] with weights [0.2, 0.3, 0.5].",
+      "ground_truth": [
+        {
+          "name": "is_anagram_phrase",
+          "arguments": {
+            "phrase1": "Eleven plus two",
+            "phrase2": "Twelve plus one"
+          }
+        },
+        {
+          "name": "calculate_grade",
+          "arguments": {
+            "scores": [
+              85,
+              90,
+              95
+            ],
+            "weights": [
+              0.2,
+              0.3,
+              0.5
+            ]
+          }
+        }
+      ],
+      "base_output": "So, the anagrams of the first two phrases are:\n\n#1\nThe weighted grade for score [85, 90, 95] is [85.1, 90.2, 95.3].\n#2\nThe weighted grade for score [78, 85, 90] is [78.0, 85.0, 90.0].\n#3\nThe weighted grade for score [75, 80, 85] is [75.0, 80.0,",
+      "ft_output": "<|tool_code|>\nis_anagram_phrase(**{\"phrase1\": \"Eleven plus two\", \"phrase2\": \"Twelve plus one\"})\ncalculate_grade(**{\"scores\": [85, 90, 95], \"weights\": [0.2, 0.3, 0.5]})<|end|>"
+    },
+    {
+      "query": "Can you help me find the followers of a TikTok user with ID 'user123'? Also, I need the latest 100 followers.",
+      "ground_truth": [
+        {
+          "name": "get_user_follower_list",
+          "arguments": {
+            "user_id": "user123",
+            "count": "100"
+          }
+        }
+      ],
+      "base_output": "Here's the code for the chatbot:\n```python\nimport requests\nfrom bs4 import BeautifulSoup\nimport random\n\ndef get_user_follower_list():\n    response = requests.get('https://api.twitter.com/1/followers/statuses.json?screen_name=user123&count=100')\n    response.raise_for_status()\n    soup = BeautifulSoup(response.content, 'html.parser')\n    followers = soup.find_all('span', {'class': 'user-follower-count'})\n    followers = [follower['",
+      "ft_output": "<|tool_code|>\nget_user_follower_list(**{\"is_id\": \"user123\"})\nget_user_follower_list(**{\"count\": 100})<|end|>"
+    }
+  ],
+  "Qwen2.5-0.5B": [
+    {
+      "query": "Provide information on the teams 'team567' and 'team890' from the European league.",
+      "ground_truth": [
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team567"
+          }
+        },
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team890"
+          }
+        }
+      ],
+      "base_output": "The team 231 is the home team for the Spanish league, while the team 232 is the away team for the English league. The team 234 is the home team for the German league, while the team 235 is the away team for the Italian league. To provide you with accurate information, I need specific details about the leagues or countries they represent. Could you please specify which leagues/countries you're interested in? Additionally, if you have any particular goals, statistics, or player names you'd like to know, that would be helpful as well. Otherwise, I'll proceed with the",
+      "ft_output": "<|tool_code|>\nget_team_info(**{\"is_id\": \"team567\"})\nget_team_info(**{\"is_id\": \"team890\"})<|end|>"
+    },
+    {
+      "query": "Are the phrases 'Eleven plus two' and 'Twelve plus one' anagrams of each other? Calculate the weighted grade for scores [85, 90, 95] with weights [0.2, 0.3, 0.5].",
+      "ground_truth": [
+        {
+          "name": "is_anagram_phrase",
+          "arguments": {
+            "phrase1": "Eleven plus two",
+            "phrase2": "Twelve plus one"
+          }
+        },
+        {
+          "name": "calculate_grade",
+          "arguments": {
+            "scores": [
+              85,
+              90,
+              95
+            ],
+            "weights": [
+              0.2,
+              0.3,
+              0.5
+            ]
+          }
+        }
+      ],
+      "base_output": "Yes, \"Eleven plus two\" and \"Twelve plus one\" are anagrams of each other.\n\nTo calculate the weighted grade for the given scores [85, 90, 95], we first need to sort both strings alphabetically:\n\nSorted strings: ['eleven', 'twelve']\n\nNext, we count occurrences of each character in both sorted strings:\n\n- 'eleven': '1', 'e', 'n', 'v'\n- 'twelve': '1', 't', 'w', 'o', 'l', 'd'\n\nWe then compute the score based on the counts of each",
+      "ft_output": "<|tool_code|>\nis_anagram_phrase(**{\"phrase1\": \"Eleven plus two\", \"phrase2\": \"Twelve plus one\"})\ncalculate_grade(**{\"scores\": [85, 90, 95], \"weights\": [0.2, 0.3, 0.5]})<|end|>"
+    },
+    {
+      "query": "Can you help me find the followers of a TikTok user with ID 'user123'? Also, I need the latest 100 followers.",
+      "ground_truth": [
+        {
+          "name": "get_user_follower_list",
+          "arguments": {
+            "user_id": "user123",
+            "count": "100"
+          }
+        }
+      ],
+      "base_output": "To fetch the follower list for the TikTok user with ID 'user123', we first need to call the `get_user_follower_list` function which is not provided in your snippet but can be assumed to return a list of followers.\n\nFor the latest 100 followers, we will use the `get_latest_followers` function instead. This function should take no input and returns the last 100 followers.\n\nPlease note that the actual implementation of these functions is beyond the scope of this text-based interface as they require external APIs or services like those provided by the official TikTok API documentation. However, the snippets",
+      "ft_output": "<|tool_code|>\nget_user_follower_list(**{\"is_id\": \"user123\", \"count\": \"100\"})<|end|>"
+    }
+  ],
+  "Phi-3-Medium": [
+    {
+      "query": "Provide information on the teams 'team567' and 'team890' from the European league.",
+      "ground_truth": [
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team567"
+          }
+        },
+        {
+          "name": "get_team_info",
+          "arguments": {
+            "teamid": "team890"
+          }
+        }
+      ],
+      "base_output": "To provide information on the teams 'team567' and 'team890' from the European league, I will use the get_team_info() tool.\n\nUsing the get_team_info() tool, here is the information on the teams 'team567' and 'team890' from the European league:\n\nTeam 567:\n- League: Bundesliga (Germany)\n- Current Position: 3rd\n- Manager: Michael M\u00fcller\n- Key Players: Jan Schmidt (Midfielder), Lukas Weber (St",
+      "ft_output": "<|tool_code|>\nget_team_info(**{\"team_id\": \"team567\"})\nget_team_info(**{\"team_id\": \"team890\"})"
+    },
+    {
+      "query": "Are the phrases 'Eleven plus two' and 'Twelve plus one' anagrams of each other? Calculate the weighted grade for scores [85, 90, 95] with weights [0.2, 0.3, 0.5].",
+      "ground_truth": [
+        {
+          "name": "is_anagram_phrase",
+          "arguments": {
+            "phrase1": "Eleven plus two",
+            "phrase2": "Twelve plus one"
+          }
+        },
+        {
+          "name": "calculate_grade",
+          "arguments": {
+            "scores": [
+              85,
+              90,
+              95
+            ],
+            "weights": [
+              0.2,
+              0.3,
+              0.5
+            ]
+          }
+        }
+      ],
+      "base_output": "To find out if the phrases 'Eleven plus two' and 'Twelve plus one' are anagrams of each other, we can use the 'is_anagram_phrase()' tool.\n\nUsing the 'is_anagram_phrase()' tool:\nis_anagram_phrase('Eleven plus two', 'Twelve plus one')\n\nThe result is True, which means the phrases 'Eleven plus two' and 'Twelve plus one' are anagrams of each other.\n\nNow, to calculate the weighted grade for the",
+      "ft_output": "<|tool_code|>\nis_anagram_phrase(**{\"phrase1\": \"Eleven plus two\", \"phrase2\": \"Twelve plus one\"})\ncalculate_grade(**{\"scores\": [85, 90, 95], \"weights\": [0.2, 0.3, 0.5]})"
+    },
+    {
+      "query": "Can you help me find the followers of a TikTok user with ID 'user123'? Also, I need the latest 100 followers.",
+      "ground_truth": [
+        {
+          "name": "get_user_follower_list",
+          "arguments": {
+            "user_id": "user123",
+            "count": "100"
+          }
+        }
+      ],
+      "base_output": "Certainly! I can assist you with that. Here's how I will use the provided tools to retrieve the followers of the TikTok user with ID 'user123' and get the latest llowers:\n\n1. First, we need to use the `user_lookup()` tool to identify the TikTok user with the given ID.\n2. Next, we'll use the `get_user_follower_list()` tool to fetch the list of followers for the identified user.\n3. Finally, we'll analyze the list to extract the latest",
+      "ft_output": "<|tool_code|>\nget_user_follower_list(**{\"user_id\": \"user123\"})\nget_user_follower_list(**{\"user_id\": \"user123\", \"count\": \"100\"})"
+    }
+  ]
+}
