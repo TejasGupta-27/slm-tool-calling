@@ -1,58 +1,0 @@
-loading file tokenizer.model from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/tokenizer.model
-loading file tokenizer.json from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/tokenizer.json
-loading file added_tokens.json from cache at None
-loading file special_tokens_map.json from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/special_tokens_map.json
-loading file tokenizer_config.json from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/tokenizer_config.json
-loading file chat_template.jinja from cache at None
-loading configuration file config.json from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/config.json
-Model config MistralConfig {
-  "architectures": [
-    "MistralForCausalLM"
-  ],
-  "attention_dropout": 0.0,
-  "bos_token_id": 1,
-  "dtype": "bfloat16",
-  "eos_token_id": 2,
-  "head_dim": null,
-  "hidden_act": "silu",
-  "hidden_size": 4096,
-  "initializer_range": 0.02,
-  "intermediate_size": 14336,
-  "max_position_embeddings": 32768,
-  "model_type": "mistral",
-  "num_attention_heads": 32,
-  "num_hidden_layers": 32,
-  "num_key_value_heads": 8,
-  "rms_norm_eps": 1e-05,
-  "rope_theta": 1000000.0,
-  "sliding_window": null,
-  "tie_word_embeddings": false,
-  "transformers_version": "4.57.3",
-  "use_cache": true,
-  "vocab_size": 32768
-}
-
-Overriding dtype=None with `dtype=torch.float16` due to requirements of `bitsandbytes` to enable model loading in 8-bit or 4-bit. Pass your own dtype to specify the dtype of the remaining non-linear layers or pass dtype=torch.float16 to remove this warning.
-loading weights file model.safetensors from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/model.safetensors.index.json
-Device set to use cuda:1
-Loading dataset...
-Loading Tokenizer: mistralai/Mistral-7B-Instruct-v0.3
-Loading Model: mistralai/Mistral-7B-Instruct-v0.3
-Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [01:49<03:38, 109.46s/it]Fetching 3 files: 100%|██████████| 3/3 [01:49<00:00, 28.49s/it] Fetching 3 files: 100%|██████████| 3/3 [01:49<00:00, 36.58s/it]
-Instantiating MistralForCausalLM model under default dtype torch.float16.
-Generate config GenerationConfig {
-  "bos_token_id": 1,
-  "eos_token_id": 2
-}
-
-target_dtype {target_dtype} is replaced by `CustomDtype.INT4` for 4-bit BnB quantization
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:03<00:06,  3.39s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:06<00:03,  3.46s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:10<00:00,  3.30s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:10<00:00,  3.34s/it]
-loading configuration file generation_config.json from cache at /data/b22cs093/.cache/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a/generation_config.json
-Generate config GenerationConfig {
-  "bos_token_id": 1,
-  "eos_token_id": 2
-}
-
-Could not locate the custom_generate/generate.py inside mistralai/Mistral-7B-Instruct-v0.3.
-Device set to use cuda:0
-You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
