@@ -9,6 +9,18 @@ from src.evaluate import format_prompt_for_eval
 
 def generate_for_model(model_id, adapter_path, dataset, device="0"):
     print(f"\n=== Processing {model_id} ===")
+    print(f"Adapter: {adapter_path}")
+    
+    # Check if adapter exists before doing anything expensive
+    if not os.path.exists(adapter_path):
+        print(f"Warning: Adapter path {adapter_path} does not exist. Skipping.")
+        return [{
+            "query": sample["query"],
+            "ground_truth": json.loads(sample["answers"]),
+            "base_output": "SKIPPED",
+            "ft_output": "ADAPTER_NOT_FOUND"
+        } for sample in dataset]
+
     os.environ["CUDA_VISIBLE_DEVICES"] = device
     
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
@@ -38,12 +50,15 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
         prompt = format_prompt_for_eval(sample)
         
         # Base Generation
-        base_out = base_pipe(prompt, max_new_tokens=128, pad_token_id=tokenizer.pad_token_id, return_full_text=False)
-        base_text = base_out[0]["generated_text"]
-        if "<|assistant|>" in base_text:
-            base_text = base_text.split("<|assistant|>", 1)[1].strip()
-        else:
-            base_text = base_text.strip()
+        try:
+            base_out = base_pipe(prompt, max_new_tokens=128, pad_token_id=tokenizer.pad_token_id, return_full_text=False)
+            base_text = base_out[0]["generated_text"]
+            if "<|assistant|>" in base_text:
+                base_text = base_text.split("<|assistant|>", 1)[1].strip()
+            else:
+                base_text = base_text.strip()
+        except Exception as e:
+            base_text = f"ERROR: {e}"
             
         results.append({
             "query": sample["query"],
@@ -71,13 +86,16 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
         
         for i, sample in enumerate(dataset):
             prompt = format_prompt_for_eval(sample)
-            ft_out = ft_pipe(prompt, max_new_tokens=128, pad_token_id=tokenizer.pad_token_id, return_full_text=False)
-            ft_text = ft_out[0]["generated_text"]
-            
-            if "<|assistant|>" in ft_text:
-                ft_text = ft_text.split("<|assistant|>", 1)[1].strip()
-            else:
-                ft_text = ft_text.strip()
+            try:
+                ft_out = ft_pipe(prompt, max_new_tokens=128, pad_token_id=tokenizer.pad_token_id, return_full_text=False)
+                ft_text = ft_out[0]["generated_text"]
+                
+                if "<|assistant|>" in ft_text:
+                    ft_text = ft_text.split("<|assistant|>", 1)[1].strip()
+                else:
+                    ft_text = ft_text.strip()
+            except Exception as e:
+                ft_text = f"ERROR: {e}"
                 
             results[i]["ft_output"] = ft_text
             
@@ -85,7 +103,7 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
     except Exception as e:
         print(f"Error loading adapter {adapter_path}: {e}")
         for res in results:
-            res["ft_output"] = "ERROR_LOADING_ADAPTER"
+            res["ft_output"] = f"ERROR_LOADING_ADAPTER: {e}"
             
     del base_model
     gc.collect()
@@ -95,37 +113,64 @@ def generate_for_model(model_id, adapter_path, dataset, device="0"):
 
 def main():
     # Load 3 representative samples
-    # Indices chosen to show variety (simple, multiple calls, etc.)
+    # Indices chosen to show variety
     dataset = load_tool_calling_dataset(start=6000, end=6003) 
     
     report_data = {}
     
-    # Define models to test
+    # Define all models to test
     models_to_test = [
         {
-            "name": "SmolLM-360M",
+            "name": "Llama-3.2-1B (SFT)",
+            "id": "meta-llama/Llama-3.2-1B-Instruct",
+            "adapter": "./models/llama-3.2-1b-tool-calling-final"
+        },
+        {
+            "name": "SmolLM-360M (SFT)",
             "id": "HuggingFaceTB/SmolLM-360M-Instruct",
             "adapter": "./models/smollm-360m-tool-calling-final"
         },
         {
-            "name": "Qwen2.5-0.5B",
+            "name": "SmolLM-360M (DPO)",
+            "id": "HuggingFaceTB/SmolLM-360M-Instruct",
+            "adapter": "./models/smollm-360m-tool-calling-dpo-final"
+        },
+        {
+            "name": "Qwen2.5-0.5B (SFT)",
             "id": "Qwen/Qwen2.5-0.5B-Instruct",
             "adapter": "./models/qwen2.5-0.5b-tool-calling-final"
         },
         {
-            "name": "Phi-3-Medium",
+            "name": "Qwen2.5-1.5B (SFT)",
+            "id": "Qwen/Qwen2.5-1.5B-Instruct",
+            "adapter": "./models/qwen2.5-1.5b-tool-calling-final"
+        },
+        {
+            "name": "Phi-3-Medium (SFT)",
             "id": "microsoft/Phi-3-medium-4k-instruct",
             "adapter": "./models/phi3-medium-tool-calling-final"
+        },
+        {
+            "name": "Phi-3-Medium (DPO)",
+            "id": "microsoft/Phi-3-medium-4k-instruct",
+            "adapter": "./models/phi3-medium-tool-calling-dpo-final"
         }
     ]
     
+    # Using GPU 1 as it is currently free
+    device_id = "1"
+    
     for m in models_to_test:
-        report_data[m["name"]] = generate_for_model(
-            m["id"], 
-            m["adapter"], 
-            dataset, 
-            device="0" # Use GPU 0 (assuming free now) or change as needed
-        )
+        try:
+            report_data[m["name"]] = generate_for_model(
+                m["id"], 
+                m["adapter"], 
+                dataset, 
+                device=device_id
+            )
+        except Exception as e:
+            print(f"Failed to process {m['name']}: {e}")
+            report_data[m["name"]] = {"error": str(e)}
         
     # Save to JSON
     output_file = "report_outputs.json"
@@ -136,4 +181,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

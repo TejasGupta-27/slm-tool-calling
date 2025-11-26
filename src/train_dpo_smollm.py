@@ -6,13 +6,13 @@ from peft import PeftModel
 from trl import DPOConfig, DPOTrainer
 
 def main():
-    # Set CUDA device (User can override)
+    # Set CUDA device to 1 (Shared with Llama)
     if "CUDA_VISIBLE_DEVICES" not in os.environ:
-        os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "1"
         
-    model_name = "microsoft/Phi-3-medium-4k-instruct"
-    sft_adapter_path = "./models/phi3-medium-tool-calling-final"
-    output_dir = "./models/phi3-medium-tool-calling-dpo"
+    model_name = "HuggingFaceTB/SmolLM-360M-Instruct"
+    sft_adapter_path = "./models/smollm-360m-tool-calling-final"
+    output_dir = "./models/smollm-360m-tool-calling-dpo"
     
     print(f"Loading DPO dataset...")
     try:
@@ -47,9 +47,9 @@ def main():
     training_args = DPOConfig(
         output_dir=output_dir,
         beta=0.1, 
-        per_device_train_batch_size=1, # Lower batch size just in case
-        gradient_accumulation_steps=8,
-        learning_rate=1e-5, # Very low LR for fine-tuning existing adapter
+        per_device_train_batch_size=4, # Can handle larger batch size for SmolLM
+        gradient_accumulation_steps=4,
+        learning_rate=1e-5, 
         logging_steps=10,
         save_steps=100,
         num_train_epochs=1,
@@ -59,11 +59,6 @@ def main():
         bf16=True,
     )
 
-    # Note: We do NOT pass peft_config. We pass the already-loaded PeftModel.
-    # We explicitly disable ref_model creation or let TRL handle it.
-    # If TRL tries to copy the PeftModel for ref_model, it should work if memory allows.
-    # If not, we might crash on OOM.
-    
     trainer = DPOTrainer(
         model=model,
         ref_model=None, 
@@ -72,7 +67,7 @@ def main():
         processing_class=tokenizer,
     )
 
-    print("Starting DPO training (Refining SFT Adapter)...")
+    print("Starting DPO training for SmolLM...")
     trainer.train()
     print("DPO Training finished.")
     
@@ -81,3 +76,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
