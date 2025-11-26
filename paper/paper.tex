@@ -93,7 +93,7 @@ Our key contributions include:
     \item Comparative analysis of supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) for tool-calling tasks, revealing that DPO can degrade performance when not properly configured
     \item Detailed qualitative analysis of inference patterns with real examples showing how fine-tuning transforms model behavior from verbose natural language responses to precise structured outputs
     \item Analysis of training dynamics including loss curves, token accuracy, learning rate schedules, and convergence patterns
-    \item Open-source release of trained models, training scripts, and evaluation framework for reproducibility
+    \item Open-source release of trained models, training scripts, and evaluation framework\footnote{Code and models available at: \url{https://github.com/TejasGupta-27/slm-tool-calling}} for reproducibility
 \end{itemize}
 
 \section{Related Work}
@@ -787,22 +787,30 @@ Several promising research directions emerge:
 
 \subsection{Reproducibility and Open Source}
 
-To facilitate reproducibility and encourage further research, we commit to releasing:
+To facilitate reproducibility and encourage further research, we have released all code, data, and models publicly:
 
 \begin{itemize}
+    \item \textbf{Source Code}: \url{https://github.com/TejasGupta-27/slm-tool-calling}
     \item Fine-tuned model weights for all architectures on Hugging Face Hub
     \item Complete training scripts with detailed hyperparameters
     \item Evaluation code and BFCL test set predictions
     \item Preference pair generation code for DPO experiments
     \item Training logs and TensorBoard visualizations
     \item Inference examples and error analysis notebooks
+    \item Plot generation scripts and all figures in publication-ready format
 \end{itemize}
+
+The GitHub repository includes comprehensive documentation, installation instructions, and example usage for reproducing all experiments and results presented in this paper.
 
 Our work demonstrates that efficient, specialized AI systems are within reach, offering a path toward more sustainable and accessible AI deployment. The ability to achieve 82\% exact match with 1B parameters opens doors for on-device AI, privacy-preserving applications, and cost-effective production systems that were previously infeasible with large LLMs.
 
 \section*{Acknowledgments}
 
 We thank the faculty and staff at IIT Jodhpur for providing computational resources and guidance throughout this research. We acknowledge the open-source community for developing PyTorch, Hugging Face Transformers, PEFT library, and evaluation frameworks that made this work possible. Special thanks to the creators of API-Bank and BFCL datasets for enabling standardized evaluation of tool-calling capabilities.
+
+\section*{Code and Data Availability}
+
+All code, trained models, evaluation scripts, and supplementary materials are publicly available at \url{https://github.com/TejasGupta-27/slm-tool-calling}. The repository includes detailed setup instructions, training configurations, and example notebooks for reproducing all experiments.
 
 \begin{thebibliography}{00}
 
